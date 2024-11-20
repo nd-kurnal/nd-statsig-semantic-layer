@@ -15,7 +15,7 @@ def handle_api_error(response):
         error_message = error_json.get("message", "An error occurred")
         if "errors" in error_json:
             for error in error_json["errors"]:
-                error_message += f"\nError: {error}"
+                error_message += f"\nProperty: {error['property']}, Error: {error['errorMessage']}"
     except ValueError:
         # If response is not JSON or doesn't have the expected structure
         error_message = response.text or "An error occurred but no additional details were provided."
