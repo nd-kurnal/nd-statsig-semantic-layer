@@ -8,20 +8,23 @@ import yaml  # Make sure to import yaml
 STATSIG_API_KEY = os.environ.get('STATSIG_API_KEY')
 STATSIG_API_URL = 'https://statsigapi.net/console/v1'
 
+
 def handle_api_error(response):
     try:
         error_json = response.json()
         error_message = error_json.get("message", "An error occurred")
         if "errors" in error_json:
             for error in error_json["errors"]:
-                error_message += f"\nProperty: {error['property']}, Error: {error['errorMessage']}"
+                error_message += f"\nError: {error}"
     except ValueError:
         # If response is not JSON or doesn't have the expected structure
         error_message = response.text or "An error occurred but no additional details were provided."
     print(f"API Error: {error_message}")
 
+
 def encode_metric_id(metric_name):
     return f"{metric_name}::user_warehouse"
+
 
 def get_metric(metric_id):
     try:
@@ -39,6 +42,7 @@ def get_metric(metric_id):
             return None
         else:
             return response  # Return the response for further handling
+
 
 def create_or_update_metric(metric_data):
     metric_id = encode_metric_id(metric_data['name'])
@@ -64,6 +68,7 @@ def create_or_update_metric(metric_data):
     except requests.exceptions.HTTPError:
         handle_api_error(response)
 
+
 def get_existing_metric_sources():
     response = requests.get(
         f"{STATSIG_API_URL}/metrics/metric_source/list",
@@ -71,6 +76,7 @@ def get_existing_metric_sources():
     )
     response.raise_for_status()
     return response.json()['data']
+
 
 def create_or_update_metric_source(source_data):
     url = f"{STATSIG_API_URL}/metrics/metric_source"
@@ -96,6 +102,7 @@ def create_or_update_metric_source(source_data):
         print(f"Metric source '{source_name}' created or updated successfully.")
     except requests.exceptions.HTTPError:
         handle_api_error(response)
+
 
 def sync_file(file_path):
     with open(file_path, 'r') as file:
@@ -123,11 +130,11 @@ def sync_file(file_path):
         create_or_update_metric(content)
 
 
-
 def main():
     modified_files = glob('metric_sources/*.yml') + glob('metrics/*.yml')
     for file_path in modified_files:
         sync_file(file_path)
+
 
 if __name__ == '__main__':
     main()
