@@ -1,5 +1,5 @@
 ---
-name: Session and View
+name: Session and Views
 description: Metric Source for Sessions and Views
 sql: SELECT * FROM p_dwh_xp.xp_sessions_and_views
 timestampColumn: ds
