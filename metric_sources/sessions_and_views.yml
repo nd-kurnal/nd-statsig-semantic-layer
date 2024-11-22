@@ -10,7 +10,7 @@ sql: |
     session_source_category,
     
     -- Metric Values
-    ,session_count
+    session_count
     ,content_view_session_count
     ,logged_out_content_view_session_count
     ,post_content_views
