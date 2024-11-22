@@ -1,5 +1,5 @@
 ---
-name: Sessions and Views
+name: Session and View
 description: Metric Source for Sessions and Views
 sql: |
   SELECT 
