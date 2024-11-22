@@ -1,9 +1,41 @@
 ---
 name: Session and View
 description: Metric Source for Sessions and Views
-tags:
-- Tier 0
-sql: SELECT          user_profile_sk        ,ds           ,platform_name    ,session_source_category          ,session_count    ,content_view_session_count    ,logged_out_content_view_session_count    ,post_content_views    ,comment_and_reply_content_views    ,main_feed_content_views    ,digest_content_views    ,main_feed_item_views    ,feed_materialized_views    ,content_slot_views    ,post_slot_views    ,cap_slot_views    ,impression_count    ,logged_out_fivs    ,deep_session_min4    ,deep_session_min5    ,deep_session_min6    ,deep_session_min7      FROM p_dwh_xp.xp_sessions_and_views
+sql: |
+  SELECT 
+  
+    -- Subject Key
+    user_profile_sk
+    
+    -- Date of Event
+    ,ds
+    
+    -- Event Level Pivots
+    ,is_valid_neighbor
+    ,platform_name
+    ,session_source_category
+    
+    -- Metric Values
+    ,session_count
+    ,content_view_session_count
+    ,logged_out_content_view_session_count
+    ,post_content_views
+    ,comment_and_reply_content_views
+    ,main_feed_content_views
+    ,digest_content_views
+    ,main_feed_item_views
+    ,feed_materialized_views
+    ,content_slot_views
+    ,post_slot_views
+    ,cap_slot_views
+    ,impression_count
+    ,logged_out_fivs
+    ,deep_session_min4
+    ,deep_session_min5
+    ,deep_session_min6
+    ,deep_session_min7
+    
+  FROM p_dwh_xp.xp_sessions_and_views
 timestampColumn: ds
 timestampAsDay: true
 idTypeMapping:
