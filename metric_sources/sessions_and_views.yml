@@ -3,17 +3,11 @@ name: Sessions and Views
 description: Metric Source for Sessions and Views
 sql: |
   SELECT 
-  
-    -- Subject Key
-    user_profile_sk
-    
-    -- Date of Event
-    ,ds
-    
-    -- Event Level Pivots
-    ,is_valid_neighbor
-    ,platform_name
-    ,session_source_category
+    user_profile_sk,
+    ds,
+    is_valid_neighbor,
+    platform_name,
+    session_source_category,
     
     -- Metric Values
     ,session_count
