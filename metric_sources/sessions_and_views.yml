@@ -1,5 +1,5 @@
 ---
-name: Session and View
+name: Sessions and Views
 description: Metric Source for Sessions and Views
 sql: |
   SELECT 
@@ -37,7 +37,7 @@ sql: |
     
   FROM p_dwh_xp.xp_sessions_and_views
 timestampColumn: ds
-timestampAsDay: false
+timestampAsDay: true
 idTypeMapping:
 - statsigUnitID: userID
   column: user_profile_sk
